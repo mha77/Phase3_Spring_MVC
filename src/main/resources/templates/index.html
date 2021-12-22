@@ -12,6 +12,7 @@
    <p>Passwort: <input type="text" th:field="*{password}" /></p>
    <p><input type="submit" th:name="action" value="Submit" /></p>
 </form>
+<div style="color: red" th:if="${error != null}" th:text="${error}"></div>
 
 </body>
 </html>

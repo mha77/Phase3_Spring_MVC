@@ -28,16 +28,18 @@ public class Authentication {
 		String us = user.getName();
 		String pw = user.getPassword();
 		
-		String test = dao.authenticate(us, pw);
-		System.out.println(test);
-		
-		
-		//user.setName("markus");
-		//user.setPassword("test");
-		
+		String resultpw = dao.authenticate(us, pw);
+				
 		model.addAttribute("user", user);
 		
-		return "welcome";
+		if(pw.equals(resultpw)) {
+			return "welcome";
+		}else {
+			model.addAttribute("error", "Password invalid");
+			return "index";
+		}
+		
+		
 	}
 	
 	@PostMapping("/changePW")
@@ -46,12 +48,14 @@ public class Authentication {
 		String us = user.getName();
 		String pw = user.getPassword();
 		
-		int test = dao.changePw(us, pw);
-		System.out.println("Results: " + test);
+		int results = dao.changePw(us, pw);
+		System.out.println("Results: " + results);
 		
-		
-		//user.setName("markus");
-		//user.setPassword("test");
+		if(results == 1) {
+			model.addAttribute("message", "Password updated");
+		}else {
+			model.addAttribute("message", "Password not updated");
+		}
 		
 		model.addAttribute("user", user);
 		
