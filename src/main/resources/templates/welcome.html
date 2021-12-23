@@ -13,17 +13,19 @@
    <p>Passwort: <input type="text" th:field="*{password}" /></p>
    <p><input type="submit" th:name="action" value="Submit" /></p>
 </form>
+
 <div style="color: red" th:if="${message != null}" th:text="${message}"></div>
 
+<h2>List Users</h2>
 <form action="#" th:action="@{/listUsers}" method="post">
    <p><input type="submit" th:name="action" value="List Users" /></p>
 </form>
+
+<h2>Search User</h2>
 <form action="#" th:action="@{/searchUser}" th:object="${user}" method="post">
-	<p>Name: <input type="text" th:field="*{name}" /></p>
+	<p>Name: <input type="text" th:field="*{searchName}" /></p>
    <p><input type="submit" th:name="action" value="Search User" /></p>
 </form>
-
-<div style="color: red" th:if="${userFound != null}" th:text="${userFound}"></div>
 
 </body>
 </html>

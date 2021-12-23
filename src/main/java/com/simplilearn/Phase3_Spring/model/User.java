@@ -4,6 +4,7 @@ public class User {
 
 	public String name;
 	public String password;
+	public String searchName;
 	
 	public String getName() {
 		return name;
@@ -16,6 +17,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
 	}
 	
 }

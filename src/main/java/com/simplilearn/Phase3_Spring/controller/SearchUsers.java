@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.simplilearn.Phase3_Spring.dao.DAO;
+import com.simplilearn.Phase3_Spring.model.Name;
 import com.simplilearn.Phase3_Spring.model.User;
 
 
@@ -30,16 +30,19 @@ public class SearchUsers {
 	
 	@PostMapping("/searchUser")
 	public String searchUser(@ModelAttribute("user") User user, Model model) {
-		String userName = user.getName();
+		String userName = user.getSearchName();
+		System.out.println("Username: " + userName);
 		String u =  dao.searchUser(userName);
 		
 		if(u.equals(userName)) {
-			model.addAttribute("userFound", "User " + user.getName() +" found");
+			model.addAttribute("userFound", "User " + user.getSearchName()+" found");
 		}else {
-			model.addAttribute("userFound", "User " + user.getName() +" not found");
+			model.addAttribute("userFound", "User " + user.getSearchName() +" not found");
 		}
-		//model.addAttribute("users",u);
-		
-		return "welcome";		
+		//model.addAttribute("user",user);
+		//System.out.println("Searchuser: " + user.getName());
+		System.out.println("userName: " + user.getSearchName());
+				
+		return "searchUser";		
 	}
 }
