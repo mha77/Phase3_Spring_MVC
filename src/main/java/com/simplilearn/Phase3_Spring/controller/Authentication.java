@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.simplilearn.Phase3_Spring.dao.DAO;
-import com.simplilearn.Phase3_Spring.model.Name;
 import com.simplilearn.Phase3_Spring.model.User;
 
 @Controller
@@ -34,7 +33,6 @@ public class Authentication {
 		model.addAttribute("user", user);
 		
 		if(pw.equals(resultpw)) {
-			model.addAttribute("name", new Name());
 			return "welcome";
 		}else {
 			model.addAttribute("error", "Password invalid");

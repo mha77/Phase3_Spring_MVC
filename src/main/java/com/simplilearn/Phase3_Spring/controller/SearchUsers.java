@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.simplilearn.Phase3_Spring.dao.DAO;
-import com.simplilearn.Phase3_Spring.model.Name;
 import com.simplilearn.Phase3_Spring.model.User;
 
 
@@ -31,7 +30,7 @@ public class SearchUsers {
 	@PostMapping("/searchUser")
 	public String searchUser(@ModelAttribute("user") User user, Model model) {
 		String userName = user.getSearchName();
-		System.out.println("Username: " + userName);
+		//System.out.println("Username: " + userName);
 		String u =  dao.searchUser(userName);
 		
 		if(u.equals(userName)) {
@@ -41,7 +40,7 @@ public class SearchUsers {
 		}
 		//model.addAttribute("user",user);
 		//System.out.println("Searchuser: " + user.getName());
-		System.out.println("userName: " + user.getSearchName());
+		//System.out.println("userName: " + user.getSearchName());
 				
 		return "searchUser";		
 	}
