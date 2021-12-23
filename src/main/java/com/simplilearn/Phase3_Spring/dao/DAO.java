@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.simplilearn.Phase3_Spring.model.Product;
 import com.simplilearn.Phase3_Spring.model.User;
 
 import java.sql.ResultSet;
@@ -63,5 +64,27 @@ public class DAO {
 		}else {
 			return "not found";
 		}
+	}
+	
+	public List<Product> getProducts(){
+		
+		return jdbcTemplate.query("select * from product", new RowMapper<Product> () {
+
+			@Override
+			public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Product p = new Product();
+				p.setId(rs.getInt(1));
+				p.setName(rs.getString(2));
+				p.setCategory(rs.getString(3));
+				return p;
+			}
+		});	
+	}
+	
+	public int setProduct(String name, String category) {
+		
+		int result = jdbcTemplate.update("insert into product (name, category) values(?, ?)", name, category);
+		return result;
+		
 	}
 }
