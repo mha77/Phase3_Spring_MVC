@@ -15,6 +15,15 @@
 
 <div style="color: red" th:if="${message != null}" th:text="${message}"></div>
 
+<h2>Delete Product</h2>
+<form action="#" th:action="@{/delProduct}" th:object="${product}" method="post">
+   <p>Name: <input type="text" th:field="*{name}" /></p>
+   <p>Category: <input type="text" th:field="*{category}" /></p>
+   <p><input type="submit" th:name="action" value="Delete Product" /></p>
+</form>
+
+<div style="color: red" th:if="${message2 != null}" th:text="${message2}"></div>
+
 <a th:href="@{manageProducts}">List Products</a>
 <table>
 	<tr>

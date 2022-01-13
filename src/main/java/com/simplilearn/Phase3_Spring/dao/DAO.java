@@ -87,4 +87,11 @@ public class DAO {
 		return result;
 		
 	}
+	
+	public int delProduct(String name, String category) {
+		
+		int result = jdbcTemplate.update("delete from product where  name =? and category=?", name, category);
+		return result;
+		
+	}
 }

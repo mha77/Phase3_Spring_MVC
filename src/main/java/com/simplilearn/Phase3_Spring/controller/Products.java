@@ -46,5 +46,22 @@ public class Products {
 		return "Products";		
 	}
 	
+	@PostMapping("/delProduct")
+	public String delProduct(@ModelAttribute("product") Product product, Model model) {
+		
+		String name = product.getName();
+		String category = product.getCategory();
+		
+		int affected = dao.delProduct(name, category);
+		
+		if(affected == 1) {
+			model.addAttribute("message2", "Product deleted");
+		}else {
+			model.addAttribute("message2", "Product not deleted");
+		}
+		
+		return "Products";		
+	}
+	
 
 }
