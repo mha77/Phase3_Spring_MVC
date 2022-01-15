@@ -57,4 +57,14 @@ public class SearchPurchase {
 			
 		return "ListPurchases";		
 	}
+	
+	@PostMapping("/PurchaseByCategory")
+	public String PurchaseByCategory(@ModelAttribute("category") String category, Model model) {
+		
+		List<Purchase> purchases = dao.searchPurchasesByCategory(category);
+
+		model.addAttribute("purchases", purchases);			
+			
+		return "ListPurchases";		
+	}
 }

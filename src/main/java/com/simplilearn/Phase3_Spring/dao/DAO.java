@@ -138,4 +138,27 @@ public class DAO {
 		});
 		
 	}
+	
+	public List<Purchase> searchPurchasesByCategory(String category){
+		return jdbcTemplate.query("select u.name, p.name, p.category, pu.ts from purchase pu left join (user u, product p) on (pu.name_id = u.id and pu.product_id = p.id) where p.category=?" ,
+				new PreparedStatementSetter() {
+			   
+			   public void setValues(PreparedStatement preparedStatement) throws SQLException {
+			      preparedStatement.setString(1, category);
+			   }},
+			   new RowMapper<Purchase> () {
+			
+				   @Override
+			public Purchase mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Purchase pu = new Purchase();
+				pu.setUser(rs.getString(1));
+				pu.setProductName(rs.getString(2));
+				pu.setProductCategory(rs.getString(3));
+				pu.setTimestamp(rs.getDate(4));
+				return pu;
+			}
+			
+		});
+		
+	}
 }

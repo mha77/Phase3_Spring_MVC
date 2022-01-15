@@ -8,8 +8,8 @@
 
 <h1>Search Purchases</h1>
 
-<form action="#" data-th-action="@{/PurchaseByDate}" data-th-object="${categories}" method="post">
-	<select > 
+<form action="#" data-th-action="@{/PurchaseByCategory}" data-th-object="${categories}" method="post">
+	<select id="category" name="category"> 
 	<option value="">Select Category</option>
 	<option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
 	</select>
