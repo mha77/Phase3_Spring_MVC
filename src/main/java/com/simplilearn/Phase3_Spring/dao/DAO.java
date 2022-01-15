@@ -1,6 +1,7 @@
 package com.simplilearn.Phase3_Spring.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -8,8 +9,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.simplilearn.Phase3_Spring.model.Product;
+import com.simplilearn.Phase3_Spring.model.Purchase;
 import com.simplilearn.Phase3_Spring.model.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -92,6 +95,47 @@ public class DAO {
 		
 		int result = jdbcTemplate.update("delete from product where  name =? and category=?", name, category);
 		return result;
+		
+	}
+	
+	
+	public List<Purchase> searchAllPurchases(){
+		return jdbcTemplate.query("select u.name, p.name, p.category, pu.ts from purchase pu left join (user u, product p) on (pu.name_id = u.id and pu.product_id = p.id)" ,
+				new RowMapper<Purchase> () {
+			@Override
+			public Purchase mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Purchase pu = new Purchase();
+				pu.setUser(rs.getString(1));
+				pu.setProductName(rs.getString(2));
+				pu.setProductCategory(rs.getString(3));
+				pu.setTimestamp(rs.getDate(4));
+				return pu;
+			}
+			
+		});
+		
+	}
+	
+	public List<Purchase> searchPurchasesByDate(String date){
+		return jdbcTemplate.query("select u.name, p.name, p.category, pu.ts from purchase pu left join (user u, product p) on (pu.name_id = u.id and pu.product_id = p.id) where Date(pu.ts)=?" ,
+				new PreparedStatementSetter() {
+			   
+			   public void setValues(PreparedStatement preparedStatement) throws SQLException {
+			      preparedStatement.setString(1, date);
+			   }},
+			   new RowMapper<Purchase> () {
+			
+				   @Override
+			public Purchase mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Purchase pu = new Purchase();
+				pu.setUser(rs.getString(1));
+				pu.setProductName(rs.getString(2));
+				pu.setProductCategory(rs.getString(3));
+				pu.setTimestamp(rs.getDate(4));
+				return pu;
+			}
+			
+		});
 		
 	}
 }
